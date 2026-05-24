@@ -2,20 +2,911 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Enterprise Amazon ASIN Intelligence & Product Analytics Platform">
+    <meta name="theme-color" content="#0a0e27">
     <title>Amazon ASIN Intelligence | Premium Analytics Platform</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+    
+    <!-- CSS Libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet">
+    
+    <!-- JavaScript Libraries -->
     <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+    
+    <style>
+        /* ============================================================
+        ENTERPRISE GLASSMORPHISM DARK THEME - COMPLETE CSS
+        ============================================================ */
+        
+        :root {
+            --primary-color: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --info-color: #3b82f6;
+            --dark-bg: #0a0e27;
+            --darker-bg: #050817;
+            --card-bg: rgba(15, 25, 45, 0.7);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --neon-glow: 0 0 10px rgba(99, 102, 241, 0.5);
+            --neon-glow-strong: 0 0 20px rgba(99, 102, 241, 0.8);
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .particles-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+            animation: bgPulse 10s ease-in-out infinite;
+        }
+        
+        @keyframes bgPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .gradient-bg {
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            z-index: 0;
+            pointer-events: none;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Glass Effect */
+        .glass-effect {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Container */
+        .container-fluid {
+            position: relative;
+            z-index: 1;
+            padding: 20px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        /* Header */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            background: rgba(10, 14, 39, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-section h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0;
+        }
+        
+        .neon-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+            filter: drop-shadow(var(--neon-glow));
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes iconPulse {
+            0%, 100% { filter: drop-shadow(var(--neon-glow)); }
+            50% { filter: drop-shadow(var(--neon-glow-strong)); }
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 30px;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .online-dot {
+            color: var(--secondary-color);
+            font-size: 0.7rem;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        /* Upload Section */
+        .upload-section {
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: var(--transition-normal);
+        }
+        
+        .upload-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .upload-header i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+        
+        .upload-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .upload-header p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .upload-area {
+            border: 2px dashed var(--glass-border);
+            border-radius: 20px;
+            padding: 50px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .upload-area:hover, .upload-area.dragging {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.05);
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .btn-upload {
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            color: white;
+            font-weight: 600;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+        
+        .btn-upload:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .file-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            animation: slideInDown 0.5s ease;
+        }
+        
+        /* Options Panel */
+        .options-panel {
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .options-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .btn-select-all {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--primary-color);
+            padding: 8px 20px;
+            border-radius: 20px;
+            color: var(--primary-light);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .btn-select-all:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .option-category {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .option-category h4 {
+            margin-bottom: 15px;
+            color: var(--primary-light);
+            font-size: 1.1rem;
+        }
+        
+        .option-toggle {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: var(--transition-fast);
+        }
+        
+        .option-toggle:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .option-toggle input {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary-color);
+        }
+        
+        .option-label {
+            flex: 1;
+            font-size: 0.9rem;
+        }
+        
+        .options-footer {
+            text-align: center;
+        }
+        
+        .btn-start {
+            background: linear-gradient(135deg, var(--secondary-color), #059669);
+            border: none;
+            padding: 15px 50px;
+            border-radius: 40px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+        
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.3);
+        }
+        
+        /* Dashboard Controls */
+        .dashboard-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-bottom: 25px;
+        }
+        
+        .btn-export {
+            background: rgba(99, 102, 241, 0.2);
+            border: 1px solid var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 25px;
+            color: white;
+            cursor: pointer;
+            transition: var(--transition-fast);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .btn-export:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+        
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: var(--transition-normal);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(99, 102, 241, 0.2);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+        
+        .stat-info {
+            flex: 1;
+        }
+        
+        .stat-info h4 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+        
+        .stat-value.success {
+            color: var(--secondary-color);
+        }
+        
+        .stat-value.danger {
+            color: var(--danger-color);
+        }
+        
+        .stat-value.warning {
+            color: var(--warning-color);
+        }
+        
+        /* Progress Ring */
+        .progress-ring {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .ring-svg {
+            transform: rotate(-90deg);
+        }
+        
+        .ring-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+        }
+        
+        .ring-progress {
+            fill: none;
+            stroke: var(--primary-color);
+            stroke-linecap: round;
+            transition: stroke-dashoffset 0.5s ease;
+        }
+        
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+        
+        /* Current Processing */
+        .current-processing {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .processing-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+        
+        .processing-asin {
+            font-family: monospace;
+            color: var(--primary-light);
+            font-weight: 700;
+        }
+        
+        .progress-bar-container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            height: 8px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
+            width: 0%;
+            height: 100%;
+            transition: width 0.3s ease;
+            border-radius: 10px;
+        }
+        
+        /* Logs Container */
+        .logs-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        
+        .logs-header {
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logs-header span {
+            flex: 1;
+            font-weight: 600;
+        }
+        
+        .btn-clear-logs {
+            background: rgba(239, 68, 68, 0.2);
+            border: none;
+            padding: 5px 12px;
+            border-radius: 8px;
+            color: var(--danger-color);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .btn-clear-logs:hover {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        .logs-content {
+            padding: 15px;
+            height: 300px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 0.85rem;
+        }
+        
+        .log-entry {
+            padding: 8px 12px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid var(--primary-color);
+            border-radius: 5px;
+            animation: slideInRight 0.3s ease;
+        }
+        
+        .log-entry.success {
+            border-left-color: var(--secondary-color);
+        }
+        
+        .log-entry.error {
+            border-left-color: var(--danger-color);
+        }
+        
+        .log-entry.warning {
+            border-left-color: var(--warning-color);
+        }
+        
+        /* Animations */
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .animate-slide-in {
+            animation: slideInRight 0.3s ease;
+        }
+        
+        .animated-card {
+            animation: slideInDown 0.5s ease;
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-normal);
+        }
+        
+        .loading-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .loading-content {
+            text-align: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 10000;
+            min-width: 300px;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease;
+        }
+        
+        .notification-success { border-left-color: var(--secondary-color); }
+        .notification-error { border-left-color: var(--danger-color); }
+        .notification-warning { border-left-color: var(--warning-color); }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 10px;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .logo-section {
+                flex-direction: column;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .options-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .dashboard-controls {
+                justify-content: center;
+            }
+        }
+        
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--darker-bg);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+        
+        /* Chart Containers */
+        .chart-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        /* ASIN Preview */
+        .asin-preview {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .preview-header {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+        
+        .preview-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .preview-item {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 5px 12px;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .copy-asin-btn {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+        
+        .copy-asin-btn:hover {
+            color: var(--primary-color);
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow: auto;
+            animation: slideInDown 0.3s ease;
+        }
+        
+        .modal-header {
+            padding: 20px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-body {
+            padding: 20px;
+        }
+        
+        .modal-footer {
+            padding: 20px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        /* Tooltips */
+        [data-tooltip] {
+            position: relative;
+            cursor: help;
+        }
+        
+        [data-tooltip]:before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 5px 10px;
+            background: var(--darker-bg);
+            color: white;
+            font-size: 0.75rem;
+            border-radius: 5px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: var(--transition-fast);
+            z-index: 1000;
+        }
+        
+        [data-tooltip]:hover:before {
+            opacity: 1;
+            transform: translateX(-50%) translateY(-5px);
+        }
+        
+        /* Pulse Animation */
+        .pulse-animation {
+            animation: pulse 1s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        /* Glow Text */
+        .glow-text {
+            text-shadow: var(--neon-glow);
+        }
+    </style>
 </head>
 <body>
     <!-- Animated Background -->
     <div class="particles-bg"></div>
     <div class="gradient-bg"></div>
+    
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <p class="loading-message">Processing...</p>
+        </div>
+    </div>
     
     <!-- Main Container -->
     <div class="container-fluid">
@@ -25,10 +916,14 @@
                 <i class="fas fa-chart-line neon-icon"></i>
                 <h1 class="glow-text">Amazon ASIN Intelligence</h1>
                 <span class="badge premium-badge">PREMIUM ANALYTICS</span>
+                <span class="badge premium-badge" style="background: linear-gradient(135deg, #10b981, #059669);">
+                    <i class="fas fa-bolt"></i> REAL-TIME
+                </span>
             </div>
             <div class="status-indicator">
                 <i class="fas fa-circle online-dot"></i>
-                <span>System Online</span>
+                <span class="connection-status">Live</span>
+                <span class="status-dot connected"></span>
             </div>
         </div>
         
@@ -39,7 +934,10 @@
                 <div class="upload-header">
                     <i class="fas fa-cloud-upload-alt"></i>
                     <h3>Upload ASIN File</h3>
-                    <p>Supported formats: CSV, XLSX, XLS (Up to 50,000 ASINs)</p>
+                    <p>Supported formats: CSV, XLSX, XLS (Up to 100,000 ASINs)</p>
+                    <p class="text-muted" style="font-size: 0.8rem;">
+                        <i class="fas fa-info-circle"></i> File should contain ASIN column
+                    </p>
                 </div>
                 
                 <div class="upload-area" id="uploadArea">
@@ -48,7 +946,7 @@
                         <h4>Drag & Drop your file here</h4>
                         <p>or click to browse</p>
                         <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display: none;">
-                        <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                        <button class="btn-upload" id="browseBtn">
                             <i class="fas fa-folder-open"></i> Browse Files
                         </button>
                     </div>
@@ -60,16 +958,26 @@
                     <span id="fileSize"></span>
                     <span id="asinCount"></span>
                 </div>
+                
+                <!-- ASIN Preview Section -->
+                <div id="asinPreviewSection" style="display: none;"></div>
             </div>
             
-            <!-- Extraction Options Panel (Hidden Initially) -->
+            <!-- Extraction Options Panel -->
             <div class="options-panel glass-effect animated-card" id="optionsPanel" style="display: none;">
                 <div class="options-header">
-                    <i class="fas fa-sliders-h"></i>
-                    <h3>Data Extraction Configuration</h3>
-                    <button class="btn-select-all" onclick="toggleAllFields()">
-                        <i class="fas fa-check-double"></i> Select All
-                    </button>
+                    <div>
+                        <i class="fas fa-sliders-h"></i>
+                        <h3 style="display: inline-block; margin-left: 10px;">Data Extraction Configuration</h3>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <span class="badge" style="background: var(--primary-color);">
+                            <i class="fas fa-check"></i> <span id="selectedFieldsCount">0</span> Selected
+                        </span>
+                        <button class="btn-select-all" onclick="toggleAllFields()">
+                            <i class="fas fa-check-double"></i> Select All
+                        </button>
+                    </div>
                 </div>
                 
                 <div class="options-grid">
@@ -77,29 +985,36 @@
                     <div class="option-category">
                         <h4><i class="fas fa-box"></i> Core Product Info</h4>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Title" checked>
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Title" checked onchange="updateSelectedCount()">
                             <span class="option-label">Product Title</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Price" checked>
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Price" checked onchange="updateSelectedCount()">
                             <span class="option-label">Product Price</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Rating">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="MRP" onchange="updateSelectedCount()">
+                            <span class="option-label">MRP (List Price)</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Discount Percentage" onchange="updateSelectedCount()">
+                            <span class="option-label">Discount Percentage</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Rating" onchange="updateSelectedCount()">
                             <span class="option-label">Product Rating</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Total Reviews Count">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Total Reviews Count" onchange="updateSelectedCount()">
                             <span class="option-label">Total Reviews Count</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Brand">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Brand" onchange="updateSelectedCount()">
                             <span class="option-label">Product Brand</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Category" onchange="updateSelectedCount()">
+                            <span class="option-label">Product Category</span>
                         </label>
                     </div>
                     
@@ -107,24 +1022,24 @@
                     <div class="option-category">
                         <h4><i class="fas fa-shopping-cart"></i> Availability & Stock</h4>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Availability" checked>
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Availability" checked onchange="updateSelectedCount()">
                             <span class="option-label">Product Availability</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Available Product ASINs">
-                            <span class="toggle-slider"></span>
-                            <span class="option-label">Available Product ASINs</span>
+                            <input type="checkbox" class="field-check" value="Available Product ASIN" onchange="updateSelectedCount()">
+                            <span class="option-label">Available Product ASIN</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Unavailable Product ASINs">
-                            <span class="toggle-slider"></span>
-                            <span class="option-label">Unavailable Product ASINs</span>
+                            <input type="checkbox" class="field-check" value="Unavailable Product ASIN" onchange="updateSelectedCount()">
+                            <span class="option-label">Unavailable Product ASIN</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Stock Status">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Stock Status" onchange="updateSelectedCount()">
                             <span class="option-label">Product Stock Status</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Delivery Status" onchange="updateSelectedCount()">
+                            <span class="option-label">Delivery Status</span>
                         </label>
                     </div>
                     
@@ -132,29 +1047,28 @@
                     <div class="option-category">
                         <h4><i class="fas fa-trophy"></i> Rankings & Badges</h4>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Best Seller Rank">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Best Seller Rank" onchange="updateSelectedCount()">
                             <span class="option-label">Best Seller Rank</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Sub Category Rank">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Sub Category Rank" onchange="updateSelectedCount()">
                             <span class="option-label">Product Sub Category Rank</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Amazon Choice Badge">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Amazon Choice Badge" onchange="updateSelectedCount()">
                             <span class="option-label">Amazon Choice Badge</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Best Seller Badge">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Best Seller Badge" onchange="updateSelectedCount()">
                             <span class="option-label">Best Seller Badge</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Limited Time Deal Badge">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Limited Time Deal Badge" onchange="updateSelectedCount()">
                             <span class="option-label">Limited Time Deal Badge</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Sponsored Detection" onchange="updateSelectedCount()">
+                            <span class="option-label">Sponsored Detection</span>
                         </label>
                     </div>
                     
@@ -162,24 +1076,24 @@
                     <div class="option-category">
                         <h4><i class="fas fa-file-alt"></i> Advanced Content</h4>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Description">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Description" onchange="updateSelectedCount()">
                             <span class="option-label">Product Description</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Bullet Points">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Bullet Points" onchange="updateSelectedCount()">
                             <span class="option-label">Bullet Points</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product A+ Content Available or Not">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="A+ Content Available" onchange="updateSelectedCount()">
                             <span class="option-label">A+ Content Available</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Product Images Count">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Product Images Count" onchange="updateSelectedCount()">
                             <span class="option-label">Product Images Count</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product URL" onchange="updateSelectedCount()">
+                            <span class="option-label">Product URL</span>
                         </label>
                     </div>
                     
@@ -187,73 +1101,59 @@
                     <div class="option-category">
                         <h4><i class="fas fa-store"></i> Seller & Pricing</h4>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Seller Name">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Seller Name" onchange="updateSelectedCount()">
                             <span class="option-label">Seller Name</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Buy Box Available">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Buy Box Available" onchange="updateSelectedCount()">
                             <span class="option-label">Buy Box Available</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Coupon Available">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Coupon Available" onchange="updateSelectedCount()">
                             <span class="option-label">Coupon Available</span>
                         </label>
                         <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Discount Percentage">
-                            <span class="toggle-slider"></span>
-                            <span class="option-label">Discount Percentage</span>
-                        </label>
-                    </div>
-                    
-                    <!-- Delivery & Prime -->
-                    <div class="option-category">
-                        <h4><i class="fas fa-truck"></i> Delivery & Prime</h4>
-                        <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Prime Eligible">
-                            <span class="toggle-slider"></span>
+                            <input type="checkbox" class="field-check" value="Prime Eligible" onchange="updateSelectedCount()">
                             <span class="option-label">Prime Eligible</span>
-                        </label>
-                        <label class="option-toggle">
-                            <input type="checkbox" class="field-check" value="Delivery Status">
-                            <span class="toggle-slider"></span>
-                            <span class="option-label">Delivery Status</span>
                         </label>
                     </div>
                 </div>
                 
                 <div class="options-footer">
-                    <button class="btn-start" onclick="startScraping()" id="startBtn">
+                    <button class="btn-start" id="startScrapingBtn" onclick="startScraping()" disabled>
                         <i class="fas fa-play"></i> Start Extraction
+                    </button>
+                    <button class="btn-start" style="background: linear-gradient(135deg, #ef4444, #dc2626); margin-left: 10px;" onclick="cancelJob()" id="cancelBtn" style="display: none;">
+                        <i class="fas fa-stop"></i> Cancel
                     </button>
                 </div>
             </div>
             
-<div class="dashboard-controls">
-
-    <button
-        id="exportXlsxBtn"
-        class="btn-export"
-        style="display:none;"
-        onclick="exportData('xlsx', 'all')"
-    >
-        <i class="fas fa-file-excel"></i>
-        Export XLSX
-    </button>
-
-    <button
-        id="exportCsvBtn"
-        class="btn-export"
-        style="display:none;"
-        onclick="exportData('csv', 'all')"
-    >
-        <i class="fas fa-file-csv"></i>
-        Export CSV
-    </button>
-
-</div>
+            <!-- Dashboard Section -->
+            <div id="dashboard" style="display: none;">
+                <!-- Chart Row -->
+                <div class="chart-container glass-effect">
+                    <canvas id="availabilityChart"></canvas>
+                </div>
+                
+                <!-- Dashboard Controls -->
+                <div class="dashboard-controls">
+                    <button class="btn-export" id="exportXlsxBtn" style="display: none;" onclick="exportData('xlsx', 'all')">
+                        <i class="fas fa-file-excel"></i> Export XLSX
+                    </button>
+                    <button class="btn-export" id="exportCsvBtn" style="display: none;" onclick="exportData('csv', 'all')">
+                        <i class="fas fa-file-csv"></i> Export CSV
+                    </button>
+                    <button class="btn-export" id="exportJsonBtn" style="display: none;" onclick="exportData('json', 'all')">
+                        <i class="fas fa-file-code"></i> Export JSON
+                    </button>
+                    <button class="btn-export" id="exportFilteredBtn" style="display: none;" onclick="exportFiltered()">
+                        <i class="fas fa-filter"></i> Filtered Export
+                    </button>
+                    <button class="btn-export" onclick="listJobs()">
+                        <i class="fas fa-history"></i> Job History
+                    </button>
+                </div>
                 
                 <!-- Stats Cards -->
                 <div class="stats-grid">
@@ -264,7 +1164,7 @@
                             <div class="progress-ring">
                                 <svg class="ring-svg" width="80" height="80">
                                     <circle class="ring-bg" r="34" cy="40" cx="40" stroke-width="6"></circle>
-                                    <circle class="ring-progress" r="34" cy="40" cx="40" stroke-width="6" id="progressRing"></circle>
+                                    <circle class="ring-progress" r="34" cy="40" cx="40" stroke-width="6" id="progressRing" style="stroke-dasharray: 213.628; stroke-dashoffset: 213.628;"></circle>
                                 </svg>
                                 <span class="progress-text" id="progressPercent">0%</span>
                             </div>
@@ -272,7 +1172,7 @@
                     </div>
                     
                     <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-icon"><i class="fas fa-tasks"></i></div>
                         <div class="stat-info">
                             <h4>Completed</h4>
                             <div class="stat-value" id="completedCount">0</div>
@@ -308,7 +1208,7 @@
                         <div class="stat-icon"><i class="fas fa-tachometer-alt"></i></div>
                         <div class="stat-info">
                             <h4>Speed</h4>
-                            <div class="stat-value" id="speedCount">0</div>
+                            <div class="stat-value" id="processingSpeed">0</div>
                             <span>ASINs/sec</span>
                         </div>
                     </div>
@@ -326,26 +1226,86 @@
                     </div>
                 </div>
                 
+                <!-- Completion Summary -->
+                <div id="completionSummary" style="display: none;"></div>
+                
                 <!-- Live Logs -->
                 <div class="logs-container">
                     <div class="logs-header">
                         <i class="fas fa-terminal"></i>
                         <span>Live Logs</span>
-                        <button class="btn-clear-logs" onclick="clearLogs()">
-                            <i class="fas fa-trash"></i>
-                        </button>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn-clear-logs" onclick="clearLogs()">
+                                <i class="fas fa-trash"></i> Clear
+                            </button>
+                            <button class="btn-clear-logs" onclick="exportLogs()" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
                     </div>
                     <div class="logs-content" id="liveLogs">
-                        <div class="log-entry">System initialized and ready</div>
-                        <div class="log-entry">Waiting for extraction to start...</div>
+                        <div class="log-entry success">🚀 System initialized and ready</div>
+                        <div class="log-entry info">💡 Waiting for file upload...</div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    
+    <script>
+        // Additional initialization
+        function updateSelectedCount() {
+            const selectedCount = document.querySelectorAll('.field-check:checked').length;
+            const countSpan = document.getElementById('selectedFieldsCount');
+            if (countSpan) {
+                countSpan.textContent = selectedCount;
+            }
+            
+            // Enable/disable start button
+            const startBtn = document.getElementById('startScrapingBtn');
+            if (startBtn && selectedCount > 0) {
+                startBtn.disabled = false;
+            } else if (startBtn) {
+                startBtn.disabled = true;
+            }
+        }
+        
+        function exportLogs() {
+            const logs = document.getElementById('liveLogs');
+            if (logs) {
+                const logText = logs.innerText;
+                const blob = new Blob([logText], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `logs_${new Date().toISOString()}.txt`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+        }
+        
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSelectedCount();
+            
+            // Animate stats on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-in');
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.stat-card').forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
 </body>
 </html>
