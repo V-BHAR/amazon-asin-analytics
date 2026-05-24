@@ -1,158 +1,197 @@
-// ======================================================
-// AMAZON ASIN ANALYTICS - COMPLETE app.js
-// ======================================================
+// ============================================================
+// AMAZON ASIN ANALYTICS - ENTERPRISE FRONTEND
+// COMPLETE FINAL app.js
+// Paste & Run Version
+// ============================================================
 
-// ---------------- GLOBAL VARIABLES ----------------
+// ============================================================
+// GLOBAL VARIABLES
+// ============================================================
 
 let socket = null;
 let currentJobId = null;
 let uploadedData = null;
 let updateInterval = null;
 let extractionStarted = false;
+let reconnectAttempts = 0;
+let logsLimit = 200;
 
-// ---------------- SAFE ELEMENT GETTER ----------------
+// ============================================================
+// SAFE DOM HELPERS
+// ============================================================
 
 function getEl(id) {
     return document.getElementById(id);
 }
 
-// ---------------- SOCKET INITIALIZATION ----------------
+function qs(selector) {
+    return document.querySelector(selector);
+}
+
+function qsa(selector) {
+    return document.querySelectorAll(selector);
+}
+
+function safeShow(id, display = 'block') {
+
+    const el = getEl(id);
+
+    if (el) {
+        el.style.display = display;
+    }
+}
+
+function safeHide(id) {
+
+    const el = getEl(id);
+
+    if (el) {
+        el.style.display = 'none';
+    }
+}
+
+function safeText(id, value) {
+
+    const el = getEl(id);
+
+    if (el) {
+        el.textContent = value;
+    }
+}
+
+function safeHTML(id, value) {
+
+    const el = getEl(id);
+
+    if (el) {
+        el.innerHTML = value;
+    }
+}
+
+// ============================================================
+// SOCKET INITIALIZATION
+// ============================================================
 
 function initializeSocket() {
 
-    socket = io();
+    try {
 
-    socket.on('connect', () => {
+        socket = io();
 
-        console.log('Socket Connected');
+        socket.on(
+            'connect',
+            () => {
 
-        addLog(
-            'WebSocket connected successfully',
-            'success'
+                reconnectAttempts = 0;
+
+                addLog(
+                    'WebSocket Connected',
+                    'success'
+                );
+            }
         );
-    });
 
-    socket.on('disconnect', () => {
+        socket.on(
+            'disconnect',
+            () => {
 
-        addLog(
-            'WebSocket disconnected',
-            'warning'
+                addLog(
+                    'WebSocket Disconnected',
+                    'warning'
+                );
+            }
         );
-    });
 
-    socket.on(
-        'progress_update',
-        (data) => {
+        socket.on(
+            'connect_error',
+            () => {
 
-            if (
-                data.job_id === currentJobId
-            ) {
+                reconnectAttempts++;
+
+                addLog(
+                    `Socket reconnect attempt ${reconnectAttempts}`,
+                    'warning'
+                );
+            }
+        );
+
+        socket.on(
+            'progress_update',
+            (data) => {
+
+                if (
+                    data.job_id === currentJobId
+                ) {
+
+                    updateDashboard(data);
+                }
+            }
+        );
+
+        socket.on(
+            'job_completed',
+            (data) => {
+
+                extractionStarted = false;
+
+                stopProgressPolling();
 
                 updateDashboard(data);
+
+                showExportButtons();
+
+                addLog(
+                    'Extraction Completed',
+                    'success'
+                );
+
+                Swal.fire({
+                    title: 'Completed',
+                    text: 'Extraction completed successfully',
+                    icon: 'success',
+                    background: '#0a0e27',
+                    color: '#ffffff'
+                });
             }
-        }
-    );
+        );
 
-    socket.on(
-        'job_completed',
-        (data) => {
+        socket.on(
+            'job_error',
+            (data) => {
 
-            console.log(data);
+                extractionStarted = false;
 
-            extractionStarted = false;
+                stopProgressPolling();
 
-            addLog(
-                'Extraction completed successfully',
-                'success'
-            );
+                addLog(
+                    `Error: ${data.error}`,
+                    'error'
+                );
 
-            Swal.fire({
-                title: 'Completed',
-                text: 'Extraction completed successfully',
-                icon: 'success',
-                background: '#0a0e27',
-                color: '#ffffff'
-            });
+                Swal.fire({
+                    title: 'Error',
+                    text: data.error || 'Unknown Error',
+                    icon: 'error',
+                    background: '#0a0e27',
+                    color: '#ffffff'
+                });
+            }
+        );
 
-            showExportButtons();
+    } catch (error) {
 
-            stopProgressPolling();
-        }
-    );
+        console.error(error);
 
-    socket.on(
-        'job_error',
-        (data) => {
-
-            console.error(data);
-
-            extractionStarted = false;
-
-            addLog(
-                `Extraction Error: ${data.error}`,
-                'error'
-            );
-
-            Swal.fire({
-                title: 'Error',
-                text: data.error || 'Unknown error',
-                icon: 'error',
-                background: '#0a0e27',
-                color: '#ffffff'
-            });
-
-            stopProgressPolling();
-        }
-    );
-}
-
-// ---------------- SHOW EXPORT BUTTONS ----------------
-
-function showExportButtons() {
-
-    const xlsxBtn =
-        getEl('exportXlsxBtn');
-
-    const csvBtn =
-        getEl('exportCsvBtn');
-
-    if (xlsxBtn) {
-
-        xlsxBtn.style.display =
-            'inline-flex';
-    }
-
-    if (csvBtn) {
-
-        csvBtn.style.display =
-            'inline-flex';
+        addLog(
+            'Socket initialization failed',
+            'error'
+        );
     }
 }
 
-// ---------------- HIDE EXPORT BUTTONS ----------------
-
-function hideExportButtons() {
-
-    const xlsxBtn =
-        getEl('exportXlsxBtn');
-
-    const csvBtn =
-        getEl('exportCsvBtn');
-
-    if (xlsxBtn) {
-
-        xlsxBtn.style.display =
-            'none';
-    }
-
-    if (csvBtn) {
-
-        csvBtn.style.display =
-            'none';
-    }
-}
-
-// ---------------- FILE UPLOAD EVENTS ----------------
+// ============================================================
+// FILE UPLOAD EVENTS
+// ============================================================
 
 function initializeUploadEvents() {
 
@@ -163,20 +202,20 @@ function initializeUploadEvents() {
         getEl('fileInput');
 
     if (!uploadArea || !fileInput) {
+
+        addLog(
+            'Upload elements missing',
+            'warning'
+        );
+
         return;
     }
 
     uploadArea.addEventListener(
         'click',
-        (e) => {
+        () => {
 
-            if (
-                e.target === uploadArea ||
-                e.target.closest('.upload-content')
-            ) {
-
-                fileInput.click();
-            }
+            fileInput.click();
         }
     );
 
@@ -186,11 +225,9 @@ function initializeUploadEvents() {
 
             e.preventDefault();
 
-            uploadArea.style.borderColor =
-                '#00f3ff';
-
-            uploadArea.style.background =
-                'rgba(0,243,255,0.08)';
+            uploadArea.classList.add(
+                'dragging'
+            );
         }
     );
 
@@ -200,7 +237,9 @@ function initializeUploadEvents() {
 
             e.preventDefault();
 
-            resetUploadArea();
+            uploadArea.classList.remove(
+                'dragging'
+            );
         }
     );
 
@@ -210,7 +249,9 @@ function initializeUploadEvents() {
 
             e.preventDefault();
 
-            resetUploadArea();
+            uploadArea.classList.remove(
+                'dragging'
+            );
 
             const file =
                 e.dataTransfer.files[0];
@@ -237,47 +278,35 @@ function initializeUploadEvents() {
     );
 }
 
-// ---------------- RESET UPLOAD UI ----------------
-
-function resetUploadArea() {
-
-    const uploadArea =
-        getEl('uploadArea');
-
-    if (!uploadArea) return;
-
-    uploadArea.style.borderColor =
-        'rgba(255,255,255,0.1)';
-
-    uploadArea.style.background =
-        'rgba(255,255,255,0.03)';
-}
-
-// ---------------- HANDLE FILE UPLOAD ----------------
+// ============================================================
+// HANDLE FILE UPLOAD
+// ============================================================
 
 async function handleFileUpload(file) {
 
     if (!file) return;
 
-    const formData = new FormData();
+    addLog(
+        `Uploading ${file.name}`,
+        'info'
+    );
+
+    const formData =
+        new FormData();
 
     formData.append(
         'file',
         file
     );
 
-    addLog(
-        `Uploading file: ${file.name}`,
-        'info'
-    );
-
     Swal.fire({
-        title: 'Uploading...',
-        text: 'Processing uploaded file',
+        title: 'Uploading',
+        text: 'Please wait...',
         allowOutsideClick: false,
         background: '#0a0e27',
         color: '#ffffff',
         didOpen: () => {
+
             Swal.showLoading();
         }
     });
@@ -311,14 +340,14 @@ async function handleFileUpload(file) {
         Swal.fire({
             title: 'Success',
             text:
-                `${data.total_asins} ASINs detected`,
+                `${data.total_asins} ASINs Found`,
             icon: 'success',
             background: '#0a0e27',
             color: '#ffffff'
         });
 
         addLog(
-            `Upload successful: ${data.total_asins} ASINs`,
+            `${data.total_asins} ASINs detected`,
             'success'
         );
 
@@ -335,80 +364,95 @@ async function handleFileUpload(file) {
         });
 
         addLog(
-            `Upload failed: ${error.message}`,
+            error.message,
             'error'
         );
     }
 }
 
-// ---------------- UPDATE FILE INFO ----------------
+// ============================================================
+// UPDATE FILE INFO
+// ============================================================
 
 function updateFileInfo(data) {
 
-    const fileInfo =
-        getEl('fileInfo');
+    safeText(
+        'fileName',
+        data.filename || '-'
+    );
 
-    const fileName =
-        getEl('fileName');
+    safeText(
+        'asinCount',
+        `${data.total_asins || 0} ASINs`
+    );
 
-    const asinCount =
-        getEl('asinCount');
+    safeShow(
+        'fileInfo',
+        'flex'
+    );
+
+    safeShow(
+        'optionsPanel',
+        'block'
+    );
 
     const optionsPanel =
         getEl('optionsPanel');
 
-    if (fileName) {
+    if (
+        optionsPanel &&
+        typeof optionsPanel.scrollIntoView ===
+        'function'
+    ) {
 
-        fileName.textContent =
-            data.filename;
-    }
-
-    if (asinCount) {
-
-        asinCount.textContent =
-            `${data.total_asins} ASINs`;
-    }
-
-    if (fileInfo) {
-
-        fileInfo.style.display =
-            'flex';
-    }
-
-    if (optionsPanel) {
-
-        optionsPanel.style.display =
-            'block';
+        optionsPanel.scrollIntoView({
+            behavior: 'smooth'
+        });
     }
 }
 
-// ---------------- TOGGLE ALL FIELDS ----------------
+// ============================================================
+// TOGGLE ALL FIELDS
+// ============================================================
 
 function toggleAllFields() {
 
-    const checkboxes =
-        document.querySelectorAll(
-            '.field-check'
-        );
+    const fields =
+        qsa('.field-check');
 
     const allChecked =
-        Array.from(checkboxes)
+        Array.from(fields)
         .every(cb => cb.checked);
 
-    checkboxes.forEach(cb => {
+    fields.forEach(cb => {
 
         cb.checked = !allChecked;
     });
 
     addLog(
-        !allChecked
-            ? 'All fields selected'
-            : 'All fields deselected',
+        allChecked
+            ? 'Deselected all fields'
+            : 'Selected all fields',
         'info'
     );
 }
 
-// ---------------- START SCRAPING ----------------
+// ============================================================
+// GET SELECTED FIELDS
+// ============================================================
+
+function getSelectedFields() {
+
+    return Array.from(
+        qsa('.field-check:checked')
+    ).map(
+        cb => cb.value
+    );
+}
+
+// ============================================================
+// START SCRAPING
+// ============================================================
 
 async function startScraping() {
 
@@ -429,7 +473,7 @@ async function startScraping() {
 
         Swal.fire({
             title: 'Already Running',
-            text: 'Extraction already in progress',
+            text: 'Extraction already running',
             icon: 'info',
             background: '#0a0e27',
             color: '#ffffff'
@@ -439,21 +483,15 @@ async function startScraping() {
     }
 
     const selectedFields =
-        Array.from(
-            document.querySelectorAll(
-                '.field-check:checked'
-            )
-        ).map(
-            cb => cb.value
-        );
+        getSelectedFields();
 
     if (
         selectedFields.length === 0
     ) {
 
         Swal.fire({
-            title: 'No Fields Selected',
-            text: 'Please select fields',
+            title: 'Select Fields',
+            text: 'Please select at least one field',
             icon: 'warning',
             background: '#0a0e27',
             color: '#ffffff'
@@ -466,18 +504,21 @@ async function startScraping() {
 
     hideExportButtons();
 
+    initializeDashboard();
+
     addLog(
-        `Starting extraction with ${selectedFields.length} fields`,
+        'Starting extraction...',
         'info'
     );
 
     Swal.fire({
-        title: 'Starting...',
+        title: 'Starting',
         text: 'Initializing extraction engine',
         allowOutsideClick: false,
         background: '#0a0e27',
         color: '#ffffff',
         didOpen: () => {
+
             Swal.showLoading();
         }
     });
@@ -505,31 +546,29 @@ async function startScraping() {
         const data =
             await response.json();
 
-        if (!data.success) {
+        if (!data.job_id) {
 
             throw new Error(
                 data.error ||
-                'Failed to start'
+                'Failed to start extraction'
             );
         }
 
         currentJobId =
             data.job_id;
 
-        initializeDashboard();
-
         startProgressPolling();
 
         Swal.fire({
-            title: 'Extraction Started',
-            text: 'Monitor progress below',
+            title: 'Started',
+            text: 'Extraction started successfully',
             icon: 'success',
             background: '#0a0e27',
             color: '#ffffff'
         });
 
         addLog(
-            `Job started: ${currentJobId}`,
+            `Job Started (${currentJobId})`,
             'success'
         );
 
@@ -548,40 +587,46 @@ async function startScraping() {
         });
 
         addLog(
-            `Start failed: ${error.message}`,
+            error.message,
             'error'
         );
     }
 }
 
-// ---------------- INITIALIZE DASHBOARD ----------------
+// ============================================================
+// DASHBOARD INIT
+// ============================================================
 
 function initializeDashboard() {
+
+    safeShow(
+        'dashboard',
+        'block'
+    );
+
+    safeText(
+        'totalCount',
+        uploadedData?.total_asins || 0
+    );
 
     const dashboard =
         getEl('dashboard');
 
-    const totalCount =
-        getEl('totalCount');
+    if (
+        dashboard &&
+        typeof dashboard.scrollIntoView ===
+        'function'
+    ) {
 
-    if (dashboard) {
-
-        dashboard.style.display =
-            'block';
+        dashboard.scrollIntoView({
+            behavior: 'smooth'
+        });
     }
-
-    if (totalCount) {
-
-        totalCount.textContent =
-            uploadedData.total_asins || 0;
-    }
-
-    dashboard.scrollIntoView({
-        behavior: 'smooth'
-    });
 }
 
-// ---------------- PROGRESS POLLING ----------------
+// ============================================================
+// PROGRESS POLLING
+// ============================================================
 
 function startProgressPolling() {
 
@@ -612,6 +657,8 @@ function startProgressPolling() {
                         'completed'
                     ) {
 
+                        extractionStarted = false;
+
                         stopProgressPolling();
 
                         showExportButtons();
@@ -627,8 +674,6 @@ function startProgressPolling() {
         );
 }
 
-// ---------------- STOP POLLING ----------------
-
 function stopProgressPolling() {
 
     if (updateInterval) {
@@ -641,31 +686,33 @@ function stopProgressPolling() {
     }
 }
 
-// ---------------- UPDATE DASHBOARD ----------------
+// ============================================================
+// UPDATE DASHBOARD
+// ============================================================
 
 function updateDashboard(data) {
 
-    updateText(
+    safeText(
         'completedCount',
         data.processed || 0
     );
 
-    updateText(
+    safeText(
         'availableCount',
         data.available || 0
     );
 
-    updateText(
+    safeText(
         'unavailableCount',
         data.unavailable || 0
     );
 
-    updateText(
+    safeText(
         'errorCount',
         data.failed || 0
     );
 
-    updateText(
+    safeText(
         'currentAsin',
         data.current_asin || '-'
     );
@@ -673,10 +720,27 @@ function updateDashboard(data) {
     const percentage =
         data.progress_percentage || 0;
 
-    updateText(
+    safeText(
         'progressPercent',
         `${Math.round(percentage)}%`
     );
+
+    updateProgressBar(
+        percentage
+    );
+
+    updateProgressRing(
+        percentage
+    );
+}
+
+// ============================================================
+// UPDATE PROGRESS BAR
+// ============================================================
+
+function updateProgressBar(
+    percentage
+) {
 
     const progressBar =
         getEl('progressBar');
@@ -686,35 +750,11 @@ function updateDashboard(data) {
         progressBar.style.width =
             `${percentage}%`;
     }
-
-    updateProgressRing(
-        percentage
-    );
-
-    if (
-        data.current_asin
-    ) {
-
-        addLog(
-            `Processing: ${data.current_asin}`,
-            'info'
-        );
-    }
 }
 
-// ---------------- UPDATE TEXT ----------------
-
-function updateText(id, value) {
-
-    const el = getEl(id);
-
-    if (el) {
-
-        el.textContent = value;
-    }
-}
-
-// ---------------- UPDATE RING ----------------
+// ============================================================
+// UPDATE PROGRESS RING
+// ============================================================
 
 function updateProgressRing(
     percentage
@@ -738,7 +778,37 @@ function updateProgressRing(
         offset;
 }
 
-// ---------------- EXPORT ----------------
+// ============================================================
+// EXPORT BUTTONS
+// ============================================================
+
+function showExportButtons() {
+
+    safeShow(
+        'exportXlsxBtn',
+        'inline-flex'
+    );
+
+    safeShow(
+        'exportCsvBtn',
+        'inline-flex'
+    );
+}
+
+function hideExportButtons() {
+
+    safeHide(
+        'exportXlsxBtn'
+    );
+
+    safeHide(
+        'exportCsvBtn'
+    );
+}
+
+// ============================================================
+// EXPORT DATA
+// ============================================================
 
 function exportData(
     format = 'xlsx',
@@ -748,7 +818,7 @@ function exportData(
     if (!currentJobId) {
 
         Swal.fire({
-            title: 'No Job',
+            title: 'No Data',
             text: 'No completed extraction',
             icon: 'warning',
             background: '#0a0e27',
@@ -758,16 +828,35 @@ function exportData(
         return;
     }
 
-    addLog(
-        `Exporting ${format.toUpperCase()}`,
-        'success'
-    );
+    try {
 
-    window.location.href =
-        `/api/export/${currentJobId}?format=${format}&filter=${filter}`;
+        const exportUrl =
+            `/api/export/${currentJobId}?format=${format}&filter=${filter}`;
+
+        window.open(
+            exportUrl,
+            '_blank'
+        );
+
+        addLog(
+            `Exporting ${format.toUpperCase()}`,
+            'success'
+        );
+
+    } catch (error) {
+
+        console.error(error);
+
+        addLog(
+            'Export Failed',
+            'error'
+        );
+    }
 }
 
-// ---------------- LOGGING ----------------
+// ============================================================
+// LOGGING
+// ============================================================
 
 function addLog(
     message,
@@ -785,12 +874,12 @@ function addLog(
     entry.className =
         `log-entry ${type}`;
 
-    const time =
+    const timestamp =
         new Date()
         .toLocaleTimeString();
 
     entry.innerHTML =
-        `[${time}] ${getLogIcon(type)} ${message}`;
+        `[${timestamp}] ${message}`;
 
     logs.appendChild(entry);
 
@@ -798,7 +887,7 @@ function addLog(
         logs.scrollHeight;
 
     while (
-        logs.children.length > 100
+        logs.children.length > logsLimit
     ) {
 
         logs.removeChild(
@@ -807,27 +896,9 @@ function addLog(
     }
 }
 
-// ---------------- LOG ICON ----------------
-
-function getLogIcon(type) {
-
-    switch(type) {
-
-        case 'success':
-            return '✅';
-
-        case 'error':
-            return '❌';
-
-        case 'warning':
-            return '⚠️';
-
-        default:
-            return 'ℹ️';
-    }
-}
-
-// ---------------- CLEAR LOGS ----------------
+// ============================================================
+// CLEAR LOGS
+// ============================================================
 
 function clearLogs() {
 
@@ -839,20 +910,120 @@ function clearLogs() {
     logs.innerHTML = '';
 
     addLog(
-        'Logs cleared',
+        'Logs Cleared',
         'info'
     );
 }
 
-// ---------------- PAGE LOAD ----------------
+// ============================================================
+// RESET DASHBOARD
+// ============================================================
+
+function resetDashboard() {
+
+    safeText(
+        'completedCount',
+        '0'
+    );
+
+    safeText(
+        'availableCount',
+        '0'
+    );
+
+    safeText(
+        'unavailableCount',
+        '0'
+    );
+
+    safeText(
+        'errorCount',
+        '0'
+    );
+
+    safeText(
+        'progressPercent',
+        '0%'
+    );
+
+    safeText(
+        'currentAsin',
+        '-'
+    );
+
+    updateProgressBar(0);
+
+    updateProgressRing(0);
+}
+
+// ============================================================
+// THEME ANIMATIONS
+// ============================================================
+
+function initializeAnimations() {
+
+    const cards =
+        qsa('.animated-card');
+
+    cards.forEach((card, index) => {
+
+        card.style.animationDelay =
+            `${index * 0.1}s`;
+    });
+}
+
+// ============================================================
+// BUTTON LOADING
+// ============================================================
+
+function setButtonLoading(
+    id,
+    loading = true
+) {
+
+    const btn = getEl(id);
+
+    if (!btn) return;
+
+    if (loading) {
+
+        btn.disabled = true;
+
+        btn.dataset.originalText =
+            btn.innerHTML;
+
+        btn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Loading';
+
+    } else {
+
+        btn.disabled = false;
+
+        if (
+            btn.dataset.originalText
+        ) {
+
+            btn.innerHTML =
+                btn.dataset.originalText;
+        }
+    }
+}
+
+// ============================================================
+// PAGE INIT
+// ============================================================
 
 document.addEventListener(
     'DOMContentLoaded',
-    () => {
+    function () {
 
         initializeSocket();
 
         initializeUploadEvents();
+
+        initializeAnimations();
+
+        resetDashboard();
 
         addLog(
             'Amazon ASIN Analytics Ready',
@@ -860,7 +1031,7 @@ document.addEventListener(
         );
 
         addLog(
-            'Waiting for file upload',
+            'Waiting for upload...',
             'info'
         );
     }
