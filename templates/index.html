@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon ASIN Intelligence | Premium Analytics Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="particles-bg"></div>
+    <div class="gradient-bg"></div>
+    
+    <!-- Main Container -->
+    <div class="container-fluid">
+        <!-- Header -->
+        <div class="header glass-effect">
+            <div class="logo-section">
+                <i class="fas fa-chart-line neon-icon"></i>
+                <h1 class="glow-text">Amazon ASIN Intelligence</h1>
+                <span class="badge premium-badge">PREMIUM ANALYTICS</span>
+            </div>
+            <div class="status-indicator">
+                <i class="fas fa-circle online-dot"></i>
+                <span>System Online</span>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Upload Section -->
+            <div class="upload-section glass-effect animated-card">
+                <div class="upload-header">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <h3>Upload ASIN File</h3>
+                    <p>Supported formats: CSV, XLSX, XLS (Up to 50,000 ASINs)</p>
+                </div>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-file-excel upload-icon"></i>
+                        <h4>Drag & Drop your file here</h4>
+                        <p>or click to browse</p>
+                        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" style="display: none;">
+                        <button class="btn-upload" onclick="document.getElementById('fileInput').click()">
+                            <i class="fas fa-folder-open"></i> Browse Files
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="file-info" id="fileInfo" style="display: none;">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="fileName"></span>
+                    <span id="fileSize"></span>
+                    <span id="asinCount"></span>
+                </div>
+            </div>
+            
+            <!-- Extraction Options Panel (Hidden Initially) -->
+            <div class="options-panel glass-effect animated-card" id="optionsPanel" style="display: none;">
+                <div class="options-header">
+                    <i class="fas fa-sliders-h"></i>
+                    <h3>Data Extraction Configuration</h3>
+                    <button class="btn-select-all" onclick="toggleAllFields()">
+                        <i class="fas fa-check-double"></i> Select All
+                    </button>
+                </div>
+                
+                <div class="options-grid">
+                    <!-- Core Product Info -->
+                    <div class="option-category">
+                        <h4><i class="fas fa-box"></i> Core Product Info</h4>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Title" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Title</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Price" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Price</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Rating">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Rating</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Total Reviews Count">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Total Reviews Count</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Brand">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Brand</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Availability & Stock -->
+                    <div class="option-category">
+                        <h4><i class="fas fa-shopping-cart"></i> Availability & Stock</h4>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Availability" checked>
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Availability</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Available Product ASINs">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Available Product ASINs</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Unavailable Product ASINs">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Unavailable Product ASINs</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Stock Status">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Stock Status</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Rankings & Badges -->
+                    <div class="option-category">
+                        <h4><i class="fas fa-trophy"></i> Rankings & Badges</h4>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Best Seller Rank">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Best Seller Rank</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Sub Category Rank">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Sub Category Rank</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Amazon Choice Badge">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Amazon Choice Badge</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Best Seller Badge">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Best Seller Badge</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Limited Time Deal Badge">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Limited Time Deal Badge</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Advanced Content -->
+                    <div class="option-category">
+                        <h4><i class="fas fa-file-alt"></i> Advanced Content</h4>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Description">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Description</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Bullet Points">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Bullet Points</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product A+ Content Available or Not">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">A+ Content Available</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Product Images Count">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Product Images Count</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Seller & Pricing -->
+                    <div class="option-category">
+                        <h4><i class="fas fa-store"></i> Seller & Pricing</h4>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Seller Name">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Seller Name</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Buy Box Available">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Buy Box Available</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Coupon Available">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Coupon Available</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Discount Percentage">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Discount Percentage</span>
+                        </label>
+                    </div>
+                    
+                    <!-- Delivery & Prime -->
+                    <div class="option-category">
+                        <h4><i class="fas fa-truck"></i> Delivery & Prime</h4>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Prime Eligible">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Prime Eligible</span>
+                        </label>
+                        <label class="option-toggle">
+                            <input type="checkbox" class="field-check" value="Delivery Status">
+                            <span class="toggle-slider"></span>
+                            <span class="option-label">Delivery Status</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="options-footer">
+                    <button class="btn-start" onclick="startScraping()" id="startBtn">
+                        <i class="fas fa-play"></i> Start Extraction
+                    </button>
+                </div>
+            </div>
+            
+<div class="dashboard-controls">
+
+    <button
+        id="exportXlsxBtn"
+        class="btn-export"
+        style="display:none;"
+        onclick="exportData('xlsx', 'all')"
+    >
+        <i class="fas fa-file-excel"></i>
+        Export XLSX
+    </button>
+
+    <button
+        id="exportCsvBtn"
+        class="btn-export"
+        style="display:none;"
+        onclick="exportData('csv', 'all')"
+    >
+        <i class="fas fa-file-csv"></i>
+        Export CSV
+    </button>
+
+</div>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-chart-pie"></i></div>
+                        <div class="stat-info">
+                            <h4>Progress</h4>
+                            <div class="progress-ring">
+                                <svg class="ring-svg" width="80" height="80">
+                                    <circle class="ring-bg" r="34" cy="40" cx="40" stroke-width="6"></circle>
+                                    <circle class="ring-progress" r="34" cy="40" cx="40" stroke-width="6" id="progressRing"></circle>
+                                </svg>
+                                <span class="progress-text" id="progressPercent">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-info">
+                            <h4>Completed</h4>
+                            <div class="stat-value" id="completedCount">0</div>
+                            <span>of <span id="totalCount">0</span></span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-box-open"></i></div>
+                        <div class="stat-info">
+                            <h4>Available</h4>
+                            <div class="stat-value success" id="availableCount">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-ban"></i></div>
+                        <div class="stat-info">
+                            <h4>Unavailable</h4>
+                            <div class="stat-value danger" id="unavailableCount">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="stat-info">
+                            <h4>Errors</h4>
+                            <div class="stat-value warning" id="errorCount">0</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        <div class="stat-info">
+                            <h4>Speed</h4>
+                            <div class="stat-value" id="speedCount">0</div>
+                            <span>ASINs/sec</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Processing -->
+                <div class="current-processing">
+                    <div class="processing-header">
+                        <i class="fas fa-microchip"></i>
+                        <span>Currently Processing:</span>
+                        <span id="currentAsin" class="processing-asin">-</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progressBar"></div>
+                    </div>
+                </div>
+                
+                <!-- Live Logs -->
+                <div class="logs-container">
+                    <div class="logs-header">
+                        <i class="fas fa-terminal"></i>
+                        <span>Live Logs</span>
+                        <button class="btn-clear-logs" onclick="clearLogs()">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    <div class="logs-content" id="liveLogs">
+                        <div class="log-entry">System initialized and ready</div>
+                        <div class="log-entry">Waiting for extraction to start...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

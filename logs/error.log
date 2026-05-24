@@ -1,0 +1,266 @@
+2026-05-24 12:17:22 - __main__ - ERROR - app.py:738 - Fatal error: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+2026-05-24 12:25:14 - engineio.server - ERROR - server.py:462 - message handler error
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 823, in _handle_event
+    ret = handler(auth)
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\engineio\server.py", line 452, in run_handler
+    return self.handlers[event](*args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 640, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 534, in _handle_connect
+    success = self._trigger_event(
+        'connect', namespace, sid, self.environ[eio_sid])
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 611, in _trigger_event
+    return handler(*args)
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 282, in _handler
+    return self._handle_event(handler, message, namespace, sid,
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              *args)
+                              ^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 825, in _handle_event
+    ret = handler()
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\app.py", line 632, in handle_connect
+    emit('connected', {'message': 'Connected to server', 'sid': request.sid})
+    ^^^^
+NameError: name 'emit' is not defined. Did you mean: 'exit'?
+2026-05-24 12:28:31 - engineio.server - ERROR - server.py:462 - message handler error
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 823, in _handle_event
+    ret = handler(auth)
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\engineio\server.py", line 452, in run_handler
+    return self.handlers[event](*args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 640, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 534, in _handle_connect
+    success = self._trigger_event(
+        'connect', namespace, sid, self.environ[eio_sid])
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 611, in _trigger_event
+    return handler(*args)
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 282, in _handler
+    return self._handle_event(handler, message, namespace, sid,
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              *args)
+                              ^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 825, in _handle_event
+    ret = handler()
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\app.py", line 632, in handle_connect
+    emit('connected', {'message': 'Connected to server', 'sid': request.sid})
+    ^^^^
+NameError: name 'emit' is not defined. Did you mean: 'exit'?
+2026-05-24 12:28:49 - engineio.server - ERROR - server.py:462 - message handler error
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 823, in _handle_event
+    ret = handler(auth)
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\engineio\server.py", line 452, in run_handler
+    return self.handlers[event](*args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 640, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 534, in _handle_connect
+    success = self._trigger_event(
+        'connect', namespace, sid, self.environ[eio_sid])
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 611, in _trigger_event
+    return handler(*args)
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 282, in _handler
+    return self._handle_event(handler, message, namespace, sid,
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              *args)
+                              ^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 825, in _handle_event
+    ret = handler()
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\app.py", line 632, in handle_connect
+    emit('connected', {'message': 'Connected to server', 'sid': request.sid})
+    ^^^^
+NameError: name 'emit' is not defined. Did you mean: 'exit'?
+2026-05-24 12:29:06 - __main__ - ERROR - app.py:470 - Error starting scraping: No module named 'playwright'
+2026-05-24 12:29:50 - __main__ - ERROR - app.py:470 - Error starting scraping: No module named 'playwright'
+2026-05-24 12:35:30 - __main__ - ERROR - app.py:471 - Error starting scraping: No module named 'playwright'
+2026-05-24 12:45:41 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:43 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:45 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:47 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:49 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:51 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:53 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:55 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:57 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:59 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:01 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:03 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:05 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:07 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:09 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:11 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:13 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:15 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:17 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:19 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:21 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:23 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:25 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'

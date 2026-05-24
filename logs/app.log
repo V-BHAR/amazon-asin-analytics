@@ -1,0 +1,416 @@
+2026-05-24 11:56:29,273 - INFO - Client connected
+2026-05-24 12:00:04,734 - INFO - Client disconnected
+2026-05-24 12:00:36,572 - INFO - Client connected
+2026-05-24 12:02:33,043 - INFO - Client disconnected
+2026-05-24 12:02:34,754 - INFO - Client connected
+2026-05-24 12:17:22 - asyncio - DEBUG - proactor_events.py:633 - Using proactor: IocpProactor
+2026-05-24 12:17:22 - __main__ - ERROR - app.py:738 - Fatal error: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+2026-05-24 12:25:13 - asyncio - DEBUG - proactor_events.py:633 - Using proactor: IocpProactor
+2026-05-24 12:25:13 - __main__ - INFO - app.py:715 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:25:13 - __main__ - INFO - app.py:716 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:25:13 - __main__ - INFO - app.py:717 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:25:13 - __main__ - INFO - app.py:718 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:25:13 - __main__ - INFO - app.py:719 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:25:13 - __main__ - INFO - app.py:720 - 🔧 Headless mode: False
+2026-05-24 12:25:13 - __main__ - INFO - app.py:721 - ⚙️ Max workers: 3
+2026-05-24 12:25:13 - __main__ - INFO - app.py:722 - 📦 Chunk size: 5
+2026-05-24 12:25:14 - __main__ - INFO - app.py:631 - Client connected: -9r8VwSgH92N5sepAAAB
+2026-05-24 12:25:14 - engineio.server - ERROR - server.py:462 - message handler error
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 823, in _handle_event
+    ret = handler(auth)
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\engineio\server.py", line 452, in run_handler
+    return self.handlers[event](*args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 640, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 534, in _handle_connect
+    success = self._trigger_event(
+        'connect', namespace, sid, self.environ[eio_sid])
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 611, in _trigger_event
+    return handler(*args)
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 282, in _handler
+    return self._handle_event(handler, message, namespace, sid,
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              *args)
+                              ^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 825, in _handle_event
+    ret = handler()
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\app.py", line 632, in handle_connect
+    emit('connected', {'message': 'Connected to server', 'sid': request.sid})
+    ^^^^
+NameError: name 'emit' is not defined. Did you mean: 'exit'?
+2026-05-24 12:28:31 - asyncio - DEBUG - proactor_events.py:633 - Using proactor: IocpProactor
+2026-05-24 12:28:31 - __main__ - INFO - app.py:715 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:28:31 - __main__ - INFO - app.py:716 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:28:31 - __main__ - INFO - app.py:717 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:28:31 - __main__ - INFO - app.py:718 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:28:31 - __main__ - INFO - app.py:719 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:28:31 - __main__ - INFO - app.py:720 - 🔧 Headless mode: False
+2026-05-24 12:28:31 - __main__ - INFO - app.py:721 - ⚙️ Max workers: 3
+2026-05-24 12:28:31 - __main__ - INFO - app.py:722 - 📦 Chunk size: 5
+2026-05-24 12:28:31 - __main__ - INFO - app.py:631 - Client connected: 3TLJ9dfHNXCrx-G9AAAB
+2026-05-24 12:28:31 - engineio.server - ERROR - server.py:462 - message handler error
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 823, in _handle_event
+    ret = handler(auth)
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\engineio\server.py", line 452, in run_handler
+    return self.handlers[event](*args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 640, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 534, in _handle_connect
+    success = self._trigger_event(
+        'connect', namespace, sid, self.environ[eio_sid])
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 611, in _trigger_event
+    return handler(*args)
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 282, in _handler
+    return self._handle_event(handler, message, namespace, sid,
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              *args)
+                              ^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 825, in _handle_event
+    ret = handler()
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\app.py", line 632, in handle_connect
+    emit('connected', {'message': 'Connected to server', 'sid': request.sid})
+    ^^^^
+NameError: name 'emit' is not defined. Did you mean: 'exit'?
+2026-05-24 12:28:42 - __main__ - INFO - app.py:637 - Client disconnected: 3TLJ9dfHNXCrx-G9AAAB
+2026-05-24 12:28:49 - __main__ - INFO - app.py:631 - Client connected: _MhOsWFbs1KOWgzaAAAD
+2026-05-24 12:28:49 - engineio.server - ERROR - server.py:462 - message handler error
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 823, in _handle_event
+    ret = handler(auth)
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\engineio\server.py", line 452, in run_handler
+    return self.handlers[event](*args)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 640, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 534, in _handle_connect
+    success = self._trigger_event(
+        'connect', namespace, sid, self.environ[eio_sid])
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\socketio\server.py", line 611, in _trigger_event
+    return handler(*args)
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 282, in _handler
+    return self._handle_event(handler, message, namespace, sid,
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                              *args)
+                              ^^^^^^
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\venv\Lib\site-packages\flask_socketio\__init__.py", line 825, in _handle_event
+    ret = handler()
+  File "C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\app.py", line 632, in handle_connect
+    emit('connected', {'message': 'Connected to server', 'sid': request.sid})
+    ^^^^
+NameError: name 'emit' is not defined. Did you mean: 'exit'?
+2026-05-24 12:29:01 - __main__ - INFO - app.py:340 - File saved: 20260524_122901_ASIN_DATA.xlsx
+2026-05-24 12:29:06 - __main__ - INFO - app.py:186 - Job created: 70eaea6d-c9c0-448f-a24c-b49727647775 with 19 ASINs
+2026-05-24 12:29:06 - __main__ - ERROR - app.py:470 - Error starting scraping: No module named 'playwright'
+2026-05-24 12:29:50 - __main__ - INFO - app.py:186 - Job created: b30ab192-06e8-4d32-b98d-cfbf52e0d88a with 19 ASINs
+2026-05-24 12:29:50 - __main__ - ERROR - app.py:470 - Error starting scraping: No module named 'playwright'
+2026-05-24 12:33:33 - __main__ - INFO - app.py:716 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:33:33 - __main__ - INFO - app.py:717 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:33:33 - __main__ - INFO - app.py:718 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:33:33 - __main__ - INFO - app.py:719 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:33:33 - __main__ - INFO - app.py:720 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:33:33 - __main__ - INFO - app.py:721 - 🔧 Headless mode: False
+2026-05-24 12:33:33 - __main__ - INFO - app.py:722 - ⚙️ Max workers: 3
+2026-05-24 12:33:33 - __main__ - INFO - app.py:723 - 📦 Chunk size: 5
+2026-05-24 12:33:36 - __main__ - INFO - app.py:632 - Client connected: id9ZC_MPcT4aF3YLAAAB
+2026-05-24 12:34:41 - __main__ - INFO - app.py:638 - Client disconnected: id9ZC_MPcT4aF3YLAAAB
+2026-05-24 12:34:46 - __main__ - INFO - app.py:632 - Client connected: i132_5Dx6rzDuxYEAAAD
+2026-05-24 12:34:56 - __main__ - INFO - app.py:341 - File saved: 20260524_123456_ASIN_DATA.xlsx
+2026-05-24 12:35:30 - __main__ - INFO - app.py:187 - Job created: 2f2e5500-6564-452d-b606-c80a37bede20 with 19 ASINs
+2026-05-24 12:35:30 - __main__ - ERROR - app.py:471 - Error starting scraping: No module named 'playwright'
+2026-05-24 12:45:12 - __main__ - INFO - app.py:747 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:45:12 - __main__ - INFO - app.py:748 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:45:12 - __main__ - INFO - app.py:749 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:45:12 - __main__ - INFO - app.py:750 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:45:12 - __main__ - INFO - app.py:751 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:45:12 - __main__ - INFO - app.py:752 - 🔧 Headless mode: False
+2026-05-24 12:45:12 - __main__ - INFO - app.py:753 - ⚙️ Max workers: 3
+2026-05-24 12:45:12 - __main__ - INFO - app.py:754 - 📦 Chunk size: 5
+2026-05-24 12:45:13 - __main__ - INFO - app.py:663 - Client connected: 8a1UkI7_T4jjGgRSAAAB
+2026-05-24 12:45:21 - __main__ - INFO - app.py:669 - Client disconnected: 8a1UkI7_T4jjGgRSAAAB
+2026-05-24 12:45:24 - __main__ - INFO - app.py:663 - Client connected: IAHghpbx1cHgy9JUAAAD
+2026-05-24 12:45:28 - __main__ - INFO - app.py:341 - File saved: 20260524_124528_ASIN_DATA.xlsx
+2026-05-24 12:45:39 - __main__ - INFO - app.py:460 - Job started: 42c587ca-9423-49e9-8820-0a75d367c5af
+2026-05-24 12:45:41 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:43 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:45 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:47 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:49 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:51 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:53 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:55 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:57 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:45:59 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:01 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:03 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:05 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:07 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:09 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:11 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:13 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:15 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:17 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:19 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:21 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:23 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:25 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:46:25 - __main__ - INFO - app.py:669 - Client disconnected: IAHghpbx1cHgy9JUAAAD
+2026-05-24 12:46:37 - __main__ - INFO - app.py:663 - Client connected: RnBzoP_gE08WmQadAAAF
+2026-05-24 12:46:38 - __main__ - INFO - app.py:669 - Client disconnected: RnBzoP_gE08WmQadAAAF
+2026-05-24 12:46:39 - __main__ - INFO - app.py:663 - Client connected: ZV84JtX-D4jAyF9ZAAAH
+2026-05-24 12:46:53 - __main__ - INFO - app.py:669 - Client disconnected: ZV84JtX-D4jAyF9ZAAAH
+2026-05-24 12:46:54 - __main__ - INFO - app.py:663 - Client connected: w_0tzScWRVqJbbEhAAAJ
+2026-05-24 12:47:37 - __main__ - INFO - app.py:747 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:47:37 - __main__ - INFO - app.py:748 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:47:37 - __main__ - INFO - app.py:749 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:47:37 - __main__ - INFO - app.py:750 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:47:37 - __main__ - INFO - app.py:751 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:47:37 - __main__ - INFO - app.py:752 - 🔧 Headless mode: False
+2026-05-24 12:47:37 - __main__ - INFO - app.py:753 - ⚙️ Max workers: 3
+2026-05-24 12:47:37 - __main__ - INFO - app.py:754 - 📦 Chunk size: 5
+2026-05-24 12:47:38 - __main__ - INFO - app.py:663 - Client connected: 3bNG9qQzTt0BwAIHAAAB
+2026-05-24 12:47:39 - __main__ - INFO - app.py:720 - Shutdown signal received, cleaning up...
+2026-05-24 12:48:18 - __main__ - INFO - app.py:747 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:48:18 - __main__ - INFO - app.py:748 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:48:18 - __main__ - INFO - app.py:749 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:48:18 - __main__ - INFO - app.py:750 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:48:18 - __main__ - INFO - app.py:751 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:48:18 - __main__ - INFO - app.py:752 - 🔧 Headless mode: False
+2026-05-24 12:48:18 - __main__ - INFO - app.py:753 - ⚙️ Max workers: 3
+2026-05-24 12:48:18 - __main__ - INFO - app.py:754 - 📦 Chunk size: 5
+2026-05-24 12:48:28 - __main__ - INFO - app.py:663 - Client connected: ODJyKam7BJ3XauniAAAB
+2026-05-24 12:48:33 - __main__ - INFO - app.py:341 - File saved: 20260524_124833_ASIN_DATA.xlsx
+2026-05-24 12:48:44 - __main__ - INFO - app.py:460 - Job started: b2b663b2-c7c2-4100-9825-c8b514e7bcb5
+2026-05-24 12:48:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:48:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:49:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:50:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:51:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:38 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:40 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:42 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:44 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:46 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:48 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:50 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:52 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:54 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:56 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:52:58 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:00 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:02 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:04 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:06 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:08 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:10 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:12 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:14 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:16 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:18 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:20 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:22 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:24 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:26 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:28 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:30 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:32 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:34 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:53:36 - __main__ - ERROR - app.py:519 - Error getting job status: 'successful'
+2026-05-24 12:55:46 - __main__ - INFO - app.py:762 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:55:46 - __main__ - INFO - app.py:763 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:55:46 - __main__ - INFO - app.py:764 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:55:46 - __main__ - INFO - app.py:765 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:55:46 - __main__ - INFO - app.py:766 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:55:46 - __main__ - INFO - app.py:767 - 🔧 Headless mode: False
+2026-05-24 12:55:46 - __main__ - INFO - app.py:768 - ⚙️ Max workers: 3
+2026-05-24 12:55:46 - __main__ - INFO - app.py:769 - 📦 Chunk size: 5
+2026-05-24 12:55:48 - __main__ - INFO - app.py:735 - Shutdown signal received, cleaning up...
+2026-05-24 12:55:56 - __main__ - INFO - app.py:762 - 🚀 Starting Amazon ASIN Intelligence Server
+2026-05-24 12:55:56 - __main__ - INFO - app.py:763 - 📍 Host: 0.0.0.0:5000
+2026-05-24 12:55:56 - __main__ - INFO - app.py:764 - 📁 Upload folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+2026-05-24 12:55:56 - __main__ - INFO - app.py:765 - 📁 Output folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+2026-05-24 12:55:56 - __main__ - INFO - app.py:766 - 📁 Log folder: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\logs
+2026-05-24 12:55:56 - __main__ - INFO - app.py:767 - 🔧 Headless mode: False
+2026-05-24 12:55:56 - __main__ - INFO - app.py:768 - ⚙️ Max workers: 3
+2026-05-24 12:55:56 - __main__ - INFO - app.py:769 - 📦 Chunk size: 5
+2026-05-24 12:56:00 - __main__ - INFO - app.py:678 - Client connected: AcjbVB7JV7BfNxA2AAAB
+2026-05-24 12:56:01 - __main__ - INFO - app.py:684 - Client disconnected: AcjbVB7JV7BfNxA2AAAB
+2026-05-24 12:56:01 - __main__ - INFO - app.py:678 - Client connected: uqfYnQlj01TyRYg_AAAD
+2026-05-24 12:56:08 - __main__ - INFO - app.py:341 - File saved: 20260524_125608_ASIN_DATA.xlsx
+2026-05-24 12:56:18 - __main__ - INFO - app.py:475 - Job started: 0a075d9a-c572-463f-91d8-3275d2c1261c
+2026-05-24 12:57:50 - __main__ - INFO - app.py:684 - Client disconnected: uqfYnQlj01TyRYg_AAAD
+🚀 Starting Amazon ASIN Server
+📍 Host: 0.0.0.0:5000
+📁 Uploads: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+📁 Outputs: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+Shutdown signal received
+2026-05-24 13:07:46 - __main__ - INFO - app.py:678 - Client connected: zajCNlOrKkRUHqNrAAAF
+2026-05-24 13:07:51 - __main__ - INFO - app.py:341 - File saved: 20260524_130751_ASIN_DATA.xlsx
+2026-05-24 13:08:04 - __main__ - INFO - app.py:475 - Job started: 27a7297b-ca82-4041-bc29-5198f09fd8b1
+2026-05-24 13:08:37 - __main__ - INFO - app.py:684 - Client disconnected: zajCNlOrKkRUHqNrAAAF
+2026-05-24 13:08:39 - __main__ - INFO - app.py:678 - Client connected: 6JtEMEVxAuHqGQnvAAAH
+🚀 Starting Amazon ASIN Server
+📍 Host: 0.0.0.0:5000
+📁 Uploads: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+📁 Outputs: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+Client connected: hoKIbMHGg0_G4_leAAAC
+Client disconnected: hoKIbMHGg0_G4_leAAAC
+Client connected: WI49IKB28bwzOAweAAAE
+Client disconnected: WI49IKB28bwzOAweAAAE
+Client connected: n1GWRVzYwfV1kL2tAAAG
+File uploaded: 20260524_131956_ASIN_DATA.xlsx
+Job started: a2b2209d-6c21-400a-b814-379e59748dce
+🚀 Starting Amazon ASIN Server
+📍 Host: 0.0.0.0:5000
+📁 Uploads: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+📁 Outputs: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+Client connected: isv2W7IR7Pc3KZgYAAAB
+Client disconnected: isv2W7IR7Pc3KZgYAAAB
+Client connected: MmOv8cCjYhM5uhzqAAAD
+File uploaded: 20260524_132322_ASIN_DATA.xlsx
+Job started: 0bb92752-ee24-4f36-bfad-56e8356412a4
+Client disconnected: MmOv8cCjYhM5uhzqAAAD
+Client connected: F1HIvulPNsRP9_fhAAAF
+🚀 Starting Amazon ASIN Server
+📍 Host: 0.0.0.0:5000
+📁 Uploads: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\uploads
+📁 Outputs: C:\Users\bhara\OneDrive\Desktop\amazon-asin-analytics\outputs
+Client connected: _0LnFuI0rRkj2JvnAAAB
+Client connected: J0YsibFJcUaCcjFdAAAD
+Client disconnected: _0LnFuI0rRkj2JvnAAAB
+File uploaded: 20260524_133006_ASIN_DATA.xlsx
+Job started: cd8a66d8-924b-4c70-bd3b-b6fb3d0e162f
+Client disconnected: J0YsibFJcUaCcjFdAAAD
+Client connected: 8WNFbdGKCHwN6frKAAAF
